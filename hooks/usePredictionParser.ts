@@ -23,36 +23,32 @@ const F1_KEYWORDS = [
   "lance",
   "gasly",
   "pierre",
+  "colapinto",
+  "franco",
   "ocon",
   "esteban",
   "albon",
   "alex",
   "sainz",
   "carlos",
-  "tsunoda",
-  "yuki",
+  "lindblad",
+  "arvid",
   "lawson",
   "liam",
   "bearman",
   "ollie",
   "antonelli",
   "kimi",
-  "doohan",
-  "jack",
   "bortoleto",
   "gabriel",
   "hadjar",
   "isack",
-  "ricciardo",
-  "daniel",
   "perez",
-  "checo",
+  "sergio",
   "hulkenberg",
   "nico",
   "bottas",
   "valtteri",
-  "zhou",
-  "guanyu",
   // Teams
   "red bull",
   "rbr",
@@ -67,11 +63,11 @@ const F1_KEYWORDS = [
   "williams",
   "haas",
   "audi",
-  "sauber",
   "rb",
+  "racing bulls",
   "vcarb",
+  "cadillac",
   // Key Figures & Entities
-  "horner",
   "wolff",
   "toto",
   "vasseur",
@@ -79,14 +75,16 @@ const F1_KEYWORDS = [
   "brown",
   "zak",
   "stella",
-  "krack",
-  "famin",
-  "owles",
+  "andrea",
+  "vowles",
+  "james",
   "komatsu",
-  "binotto",
+  "ayao",
   "wheatley",
+  "jonathan",
   "newey",
   "adrian",
+
   "ben sulayem",
   "mohammed",
   "fia",
@@ -146,6 +144,20 @@ const F1_KEYWORDS = [
   "abudhabi",
   "yas marina",
   "madrid",
+  // Misc
+  "grand",
+  "prix",
+  "race",
+  "podium",
+  "rookie",
+  "retire",
+  "crash",
+  "dnf",
+  "dns",
+  "driver",
+  "drivers",
+  "principals",
+  "team principal",
 ];
 
 // Types
@@ -162,10 +174,14 @@ type PredictionMap = {
   [key: string]: PredictionItem[]; // Index signature for dynamic access
 };
 
+type ParseResult =
+  | { success: true; data: Record<string, PredictionMap> }
+  | { success: false; error: string };
+
 export const usePredictionParser = () => {
   const [error, setError] = useState<string | null>(null);
 
-  const parseAndValidate = (text: string, username: string) => {
+  const parseAndValidate = (text: string) => {
     setError(null);
 
     // Initialize empty structure
@@ -241,8 +257,9 @@ export const usePredictionParser = () => {
     for (let i = 1; i <= 4; i++) {
       const count = result[`tier${i}`].length;
       if (count !== 4) {
-        setError(`Tier ${i} has ${count} predictions. It must have exactly 4.`);
-        return null;
+        const msg = `Tier ${i} has ${count} predictions. It must have exactly 4.`;
+        setError(msg);
+        return { success: false, error: msg };
       }
     }
 
@@ -251,17 +268,17 @@ export const usePredictionParser = () => {
       const items = result[`tier${i}`];
       for (const item of items) {
         if (!item.keywordFound) {
-          setError(
-            `Prediction "${item.prediction.substring(0, 20)}..." in Tier ${i} is too vague. Mention a Driver, Team, or Track.`,
-          );
-          return null;
+          const msg = `Prediction "${item.prediction.substring(0, 20)}..." in Tier ${i} is too vague. Mention a Driver, TP, Team, or Track.`;
+          setError(msg);
+          return { success: false, error: msg };
         }
       }
     }
 
     // If all good, return the final object
     return {
-      [username]: result,
+      success: true,
+      data: result,
     };
   };
 
