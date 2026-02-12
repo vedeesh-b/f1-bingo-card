@@ -9,14 +9,14 @@ import {
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
 import { Toaster } from "sonner";
-import gridlockIcon from "@/public/icon.svg";
+import gridlockIcon from "@/public/logo.svg";
 import Image from "next/image";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const geist = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 export const metadata: Metadata = {
-  title: "F1 Bingo",
+  title: "GridLock",
   description: "A bingo card app for the 2026 Formula 1 season.",
 };
 
