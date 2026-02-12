@@ -33,7 +33,7 @@ export default function RootLayout({
           richColors
           toastOptions={{
             classNames: {
-              toast: "!bg-[#1C0505] !border-red-400/30 !text-red-400",
+              toast: "!bg-[#0F131A] !border-[#3C424E]",
             },
           }}
         />

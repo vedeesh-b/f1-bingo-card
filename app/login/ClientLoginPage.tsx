@@ -5,7 +5,7 @@ import leclerc_24 from "@/public/leclerc_24.webp";
 import piastri_24 from "@/public/piastri_24.webp";
 import antonelli_25 from "@/public/antonelli_25.webp";
 import { requestOtp } from "@/actions/auth";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
   DraggableCardBody,
@@ -26,6 +26,8 @@ import { Label } from "@/components/ui/label";
 export default function ClientLoginPage() {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
+  const router = useRouter();
+  console.log("router", router);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -61,7 +63,7 @@ export default function ClientLoginPage() {
       toast.info(
         "If you are on the mailing list, you should receive an OTP shortly.",
       );
-      redirect(`/validate-otp?email=${email}`);
+      router.push(`/validate-otp?email=${email}`);
     } else {
       console.log("rough");
     }
