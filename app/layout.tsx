@@ -11,6 +11,7 @@ import {
 import { Toaster } from "sonner";
 import gridlockIcon from "@/public/logo.svg";
 import Image from "next/image";
+import SplashScreenWrapper from "@/components/features/SplashScreen";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const geist = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" });
@@ -58,7 +59,9 @@ export default function RootLayout({
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
-        <DotBackground>{children}</DotBackground>
+        <DotBackground>
+          <SplashScreenWrapper>{children}</SplashScreenWrapper>
+        </DotBackground>
       </body>
     </html>
   );
