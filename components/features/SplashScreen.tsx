@@ -10,10 +10,29 @@ export default function SplashScreenWrapper({
 }: {
   children: ReactNode;
 }) {
-  const [showSplash, setShowSplash] = useState(true);
+  const [showSplash, setShowSplash] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+    const splashViewed = sessionStorage.getItem("gridlock-splash-viewed");
+    if (!splashViewed) {
+      setShowSplash(true);
+    }
+  }, []);
+
+  const handleComplete = () => {
+    setShowSplash(false);
+    // Mark as seen for this session
+    sessionStorage.setItem("gridlock-splash-viewed", "true");
+  };
+
+  // Prevent hydration mismatch by returning null or children until mounted
+  if (!isMounted) return null;
+
   return (
     <>
-      {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
+      {showSplash && <SplashScreen onComplete={handleComplete} />}
       {children}
     </>
   );
