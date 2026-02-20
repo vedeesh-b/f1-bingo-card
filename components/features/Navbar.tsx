@@ -11,6 +11,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
+import LogoutButton from "./LogOutButton";
 
 export default async function Navbar() {
   const session = await getSession();
@@ -60,6 +61,7 @@ export default async function Navbar() {
                 </Link>
               </DropdownMenuItem>
             ))}
+            <LogoutButton />
           </DropdownMenuContent>
         </DropdownMenu>
       )}

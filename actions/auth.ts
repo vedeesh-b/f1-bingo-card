@@ -1,10 +1,18 @@
 "use server";
 
 import { neon } from "@neondatabase/serverless";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import nodemailer from "nodemailer";
 
 // Initialize clients
 const sql = neon(process.env.DATABASE_URL!);
+
+export async function logout() {
+  const cookieStore = await cookies();
+  cookieStore.delete("session_token");
+  redirect("/");
+}
 
 export async function requestOtp(formData: FormData) {
   const email = formData.get("email") as string;
