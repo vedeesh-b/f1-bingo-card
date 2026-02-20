@@ -68,8 +68,7 @@ export default async function Page({ data }: PredictionViewProps) {
   if (result.length === 0) {
     return (
       <div>
-        No predictions found. Make them <Link href={"/create-card"}>here</Link>
-        .{" "}
+        No predictions found. Make them <Link href={"/create-card"}>here</Link>.
       </div>
     );
   }
@@ -77,8 +76,8 @@ export default async function Page({ data }: PredictionViewProps) {
   const predictions = result[0].content;
 
   return (
-    <div className="w-2xl h-full z-0 overflow-y-scroll py-30">
-      <h1 className="px-4 md:px-0 md:text-3xl text-2xl font-semibold text-gray-400 md:pb-10 pb-4">
+    <div className="w-2xl h-full z-0 overflow-y-scroll py-40 px-8 md:py-50">
+      <h1 className="px-4 md:px-0 md:text-3xl text-2xl font-semibold text-gray-400 md:pb-8 pb-6">
         Your Predictions
       </h1>
       <div className="flex flex-col gap-6">
