@@ -1,4 +1,4 @@
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import UserCard, { User } from "@/components/features/UserCard";
 import { getSession } from "@/lib/session";
 import { neon } from "@neondatabase/serverless";
 import { redirect } from "next/navigation";
@@ -19,6 +19,7 @@ export default async function Page() {
     JOIN allowed_users au ON u.email = au.email 
     ORDER BY au.name ASC
 `;
+  const users = results as User[];
 
   console.log(results);
   return (
@@ -26,13 +27,9 @@ export default async function Page() {
       <h1 className="px-4 md:px-0 md:text-3xl text-2xl font-semibold text-gray-400 md:pb-8 pb-6">
         Pitwall
       </h1>
-      <div>
-        {results.map((user) => (
-          <Card key={user.name} className="bg-black border-1">
-            <CardHeader>
-              <CardTitle>{user.name}</CardTitle>
-            </CardHeader>
-          </Card>
+      <div className="grid grid-cols-2  md:grid-cols-3 gap-8">
+        {users.map((user, i) => (
+          <UserCard user={user} key={i} />
         ))}
       </div>
     </div>
