@@ -6,9 +6,9 @@ import { Button } from "@/components/ui/button";
 export default function LogoutButton() {
   return (
     <Button
-      variant="destructive"
+      variant="ghost"
       size="sm"
-      className="text-sm text-neutral-500 hover:text-white mt-1"
+      className="text-sm text-red-300 hover:text-red-500 p-2"
       onClick={() => logout()}
     >
       Log out

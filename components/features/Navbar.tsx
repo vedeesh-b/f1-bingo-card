@@ -44,7 +44,7 @@ export default async function Navbar() {
       </Link>
 
       {/* Right: Dropdown */}
-      {hasPredictions && (
+      {session && (
         <DropdownMenu>
           <DropdownMenuTrigger className="px-4 py-2 rounded-md bg-neutral-800 hover:bg-neutral-700 transition">
             Menu
@@ -54,14 +54,17 @@ export default async function Navbar() {
             align="end"
             className="w-48 bg-neutral-900 border border-neutral-800 text-white"
           >
-            {menuOptions.map((option) => (
-              <DropdownMenuItem key={option.href} asChild>
-                <Link href={option.href} className="w-full cursor-pointer">
-                  {option.title}
-                </Link>
-              </DropdownMenuItem>
-            ))}
-            <LogoutButton />
+            {hasPredictions &&
+              menuOptions.map((option) => (
+                <DropdownMenuItem key={option.href} asChild>
+                  <Link href={option.href} className="w-full cursor-pointer">
+                    {option.title}
+                  </Link>
+                </DropdownMenuItem>
+              ))}
+            <DropdownMenuItem key="logout" asChild>
+              <LogoutButton />
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )}
